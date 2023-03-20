@@ -20,7 +20,6 @@ export const useManagerStore = defineStore('manager', () => {
   }
   function getManagerAuth() {
     const managerData = cookies.get("user")
-    console.log(managerData)
     if(!managerData){ 
       router.push({name: 'home'})
     }

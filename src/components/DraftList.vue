@@ -1,23 +1,22 @@
 <script setup>
 // import { useRosterStore } from "../stores/rosters";
 import { useDraftStore } from "../stores/draft";
-// import { storeToRefs } from "pinia";
+import { storeToRefs } from "pinia";
 
 const { addPlayer } = useDraftStore();
-// const { isUserSelection } = storeToRefs(useDraftStore());
+const { isUserSelection } = storeToRefs(useDraftStore());
 defineProps({
   players: Array,
 });
 </script>
 <template>
-  <v-table>
+  <v-table height="500px">
     <thead>
       <tr>
         <th class="text-left">Name</th>
         <th class="text-left">Position</th>
         <th class="text-left">Rank</th>
-        <th class="text-left">Bye Week</th>
-        <th class="text-left"><v-icon icon="mdi-plus"></v-icon></th>
+        <th class="text-left"></th>
       </tr>
     </thead>
     <tbody>
@@ -39,9 +38,10 @@ defineProps({
         <td>{{ player.Name }}</td>
         <td>{{ player.Position }}</td>
         <td>{{ idx + 1 }}</td>
-        <td>{{ player.ByeWeek }}</td>
         <td>
-          <v-btn @click="addPlayer(player)">ADD</v-btn>
+          <v-btn v-if="isUserSelection" :player="player" @click="addPlayer(player)"
+            >ADD</v-btn
+          >
         </td>
       </tr>
     </tbody>

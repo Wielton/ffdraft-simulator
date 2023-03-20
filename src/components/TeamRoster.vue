@@ -1,13 +1,13 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { useRosterStore } from "../stores/rosters.js";
-const { roster } = storeToRefs(useRosterStore());
+import { useDraftStore } from "../stores/draft.js";
+const { teams } = storeToRefs(useDraftStore());
 </script>
 <template>
   <v-list>
-    <v-list-item v-for="(position, idx) in roster.positions" :key="idx"
+    <v-list-item v-for="(position, idx) in teams[0].roster" :key="idx"
       >{{ position.name }}
-      <p v-if="position.player != null">{{ position.player.Name }}</p>
+      <span v-if="position.player != null">{{ position.player.Name }}</span>
     </v-list-item>
   </v-list>
 </template>
