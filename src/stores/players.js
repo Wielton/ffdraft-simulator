@@ -7,9 +7,10 @@ export const usePlayerStore = defineStore('players', () => {
   const players = ref(null)
   
   async function fetchRawPlayerData() {
+    const apiUrl = import.meta.env.VITE_API_URL
     const apiKey = import.meta.env.VITE_API_KEY
     await axios.request({
-        url: "https://api.sportsdata.io/v3/nfl/stats/json/FantasyPlayers?key="+apiKey,
+        url: apiUrl+"?key="+apiKey,
         method: "GET",
 }).then((response) => {
   console.log(response.data)

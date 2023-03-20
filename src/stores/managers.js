@@ -9,22 +9,23 @@ import { v4 as uuidv4 } from 'uuid';
 // 
 
 export const useManagerStore = defineStore('manager', () => {
-  const manager = ref({id: Number, teamName: String})
+  const manager = ref({id: null, teamName: null})
   const managerId = uuidv4()
   const leagueManagers = ref([])
   function createTeam(managerTeamName) {
-    this.manager.teamName = managerTeamName
-    this.manager.id = managerId
-    cookies.set("user", this.manager)
-    router.push({name: 'league', params: {managerTeamName: managerTeamName}})
-    console.log(cookies.get("user"))
+    manager.value.teamName = managerTeamName
+    manager.value.id = managerId
+    cookies.set("user", manager.value)
+    router.push({name: 'league', params: {managerTeamName: manager.value.teamName}})
   }
-  async function getManagerAuth() {
-    const managerData = await cookies.get("user")
+  function getManagerAuth() {
+    const managerData = cookies.get("user")
     console.log(managerData)
-    if(managerData){
-      this.manager = managerData
+    if(!managerData){ 
+      router.push({name: 'home'})
     }
+    manager.value = managerData
+    
 }
 
   return { manager, leagueManagers, createTeam, getManagerAuth }

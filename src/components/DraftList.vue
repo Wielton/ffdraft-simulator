@@ -1,7 +1,10 @@
 <script setup>
-import { useRosterStore } from "../stores/rosters";
+// import { useRosterStore } from "../stores/rosters";
+import { useDraftStore } from "../stores/draft";
+// import { storeToRefs } from "pinia";
 
-const { addPlayer } = useRosterStore();
+const { addPlayer } = useDraftStore();
+// const { isUserSelection } = storeToRefs(useDraftStore());
 defineProps({
   players: Array,
 });
@@ -37,7 +40,9 @@ defineProps({
         <td>{{ player.Position }}</td>
         <td>{{ idx + 1 }}</td>
         <td>{{ player.ByeWeek }}</td>
-        <td><v-btn @click="addPlayer(player)">ADD</v-btn></td>
+        <td>
+          <v-btn @click="addPlayer(player)">ADD</v-btn>
+        </td>
       </tr>
     </tbody>
   </v-table>
