@@ -11,33 +11,34 @@ export const useRosterStore = defineStore('rosters', () => {
     { manager: manager.value, positions: [{ name: "QB", position: "QB", player: null }, { name: "WR1", position: "WR", player: null }, { name: "WR2", position: "WR", player: null }, { name: "RB1", position: "RB", player: null }, { name: "RB2", position: "RB", player: null }, { name: "TE", position: "TE", player: null }, { name: "FLEX1", position: ["WR", "RB", "TE"], player: null }, { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }] }
   )
   const league = ref([])
-  function addPlayer(player) {
-  const rosterPlayer = roster.value.positions.find(p => p.position == player.Position && p.player == null)
-  if (rosterPlayer) {
-    // If there is an open position that matches the player's position, assign the player to that position
-    rosterPlayer.player = player
-    removePlayer(player)
-  } else {
-    // If all positions are filled, assign the player to the FLEX1 position if it's available
-    const flex1 = roster.value.positions.find(p => p.name === 'FLEX1' && p.player === null)
-    const flex2 = roster.value.positions.find(p => p.name === 'FLEX2' && p.player === null)
-
-    if (flex1 && flex1.position.includes(player.Position) && !flex1.player) {
-      flex1.player = player
-    } else if(flex2 && flex2.position.includes(player.Position) && !flex2.player) {
-      // If the FLEX1 position is also filled or doesn't allow the player's position, put into FLEX2
-      flex2.player = player
-    } else {
-      // If the FLEX1 and FLEX2 positions are filled or doesn't allow the player's position, do nothing
-      // this.league.push(this.roster)
-      console.log('That position is filled')
-      // console.log(this.league.value)
-      return;
-    }
-    removePlayer(player)
-  }
   
-}
+  function addPlayer(player) {
+    const rosterPlayer = roster.value.positions.find(p => p.position == player.Position && p.player == null)
+    if (rosterPlayer) {
+      // If there is an open position that matches the player's position, assign the player to that position
+      rosterPlayer.player = player
+      removePlayer(player)
+    } else {
+      // If all positions are filled, assign the player to the FLEX1 position if it's available
+      const flex1 = roster.value.positions.find(p => p.name === 'FLEX1' && p.player === null)
+      const flex2 = roster.value.positions.find(p => p.name === 'FLEX2' && p.player === null)
+
+      if (flex1 && flex1.position.includes(player.Position) && !flex1.player) {
+        flex1.player = player
+      } else if (flex2 && flex2.position.includes(player.Position) && !flex2.player) {
+        // If the FLEX1 position is also filled or doesn't allow the player's position, put into FLEX2
+        flex2.player = player
+      } else {
+        // If the FLEX1 and FLEX2 positions are filled or doesn't allow the player's position, do nothing
+        // this.league.push(this.roster)
+        console.log('That position is filled')
+        // console.log(this.league.value)
+        return;
+      }
+      removePlayer(player)
+    }
+
+  }
 
   //   function addPlayer(player) {
   //     // Edge Cases: 

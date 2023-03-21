@@ -38,21 +38,33 @@ onMounted(() => {
 </script>
 
 <template>
-  <main>
-    <h1 v-if="welcomeIntro.isTyping" class="typed">
-      {{ welcomeIntro.msg }}
-    </h1>
-    <p v-if="teamPrompt.isTyping" class="typed">
-      {{ teamPrompt.msg }}
-    </p>
-    <v-form ref="form" @submit.prevent="createTeam(teamPrompt.input)">
-      <v-text-field
-        bgColor="white"
-        v-if="teamInput.isTyping"
-        v-model="teamPrompt.input"
-      ></v-text-field
-    ></v-form>
-  </main>
+  <v-container fluid>
+    <v-row>
+      <v-col cols="12">
+        <h1 v-if="welcomeIntro.isTyping" class="typed">
+          {{ welcomeIntro.msg }}
+        </h1>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <p v-if="teamPrompt.isTyping" class="typed">
+          {{ teamPrompt.msg }}
+        </p>
+      </v-col>
+    </v-row>
+    <v-row
+      ><v-col cols="4">
+        <v-form ref="form" @submit.prevent="createTeam(teamPrompt.input)">
+          <v-text-field
+            bgColor="white"
+            v-if="teamInput.isTyping"
+            v-model="teamPrompt.input"
+          ></v-text-field
+        ></v-form>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <style>
 .typed {
@@ -69,6 +81,7 @@ onMounted(() => {
   from {
     width: 0;
   }
+
   to {
     width: 100%;
   }

@@ -12,8 +12,14 @@ export const useDraftStore = defineStore('draft', () => {
   const manager = cookies.get("user")
 
   // The roster variable is a reactive object that represents the list of players that each team can draft. It includes a manager property which is a reactive reference to the manager of the team, and an array of positions objects which represent the different positions on a football team (e.g. quarterback, wide receiver, etc.). Each position object has a name, a position property that specifies the position type (e.g. QB, WR, RB, etc.), and a player property that initially has a value of null, indicating that no player has been drafted for that position.
-  const roster = ref({
-    positions: [
+  
+
+  // The league variable is an empty array that will eventually hold the drafted players.
+  const league = ref([]);
+
+  // The teams variable is an array of objects that represent the different teams in the league. Each team object has a name property and an isAI property that specifies whether the team is controlled by an artificial intelligence (AI) or a human user.
+  const teams = ref([
+    { name: `${manager.teamName}`, isAI: false, roster: [
       { name: "QB", position: "QB", player: null },
       { name: "WR1", position: "WR", player: null },
       { name: "WR2", position: "WR", player: null },
@@ -22,26 +28,117 @@ export const useDraftStore = defineStore('draft', () => {
       { name: "TE", position: "TE", player: null },
       { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
       { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
-    ]
-  });
-
-  // The league variable is an empty array that will eventually hold the drafted players.
-  const league = ref([]);
-
-  // The teams variable is an array of objects that represent the different teams in the league. Each team object has a name property and an isAI property that specifies whether the team is controlled by an artificial intelligence (AI) or a human user.
-  const teams = ref([
-    { name: `${manager.teamName}`, isAI: false, roster: roster.value.positions, isDrafting: false },
-    { name: "Team 2", isAI: true, roster: roster.value.positions, isDrafting: false },
-    { name: "Team 3", isAI: true, roster: roster.value.positions, isDrafting: false },
-    { name: "Team 4", isAI: true, roster: roster.value.positions, isDrafting: false },
-    { name: "Team 5", isAI: true, roster: roster.value.positions, isDrafting: false },
-    { name: "Team 6", isAI: true, roster: roster.value.positions, isDrafting: false },
-    { name: "Team 7", isAI: true, roster: roster.value.positions, isDrafting: false },
-    { name: "Team 8", isAI: true, roster: roster.value.positions, isDrafting: false },
-    { name: "Team 9", isAI: true, roster: roster.value.positions, isDrafting: false },
-    { name: "Team 10", isAI: true, roster: roster.value.positions, isDrafting: false },
-    { name: "Team 11", isAI: true, roster: roster.value.positions, isDrafting: false },
-    { name: "Team 12", isAI: true, roster: roster.value.positions, isDrafting: false }
+    ], isDrafting: false },
+    { name: "Team 2", isAI: true, roster: [
+      { name: "QB", position: "QB", player: null },
+      { name: "WR1", position: "WR", player: null },
+      { name: "WR2", position: "WR", player: null },
+      { name: "RB1", position: "RB", player: null },
+      { name: "RB2", position: "RB", player: null },
+      { name: "TE", position: "TE", player: null },
+      { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+      { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+    ], isDrafting: false },
+    { name: "Team 3", isAI: true, roster: [
+      { name: "QB", position: "QB", player: null },
+      { name: "WR1", position: "WR", player: null },
+      { name: "WR2", position: "WR", player: null },
+      { name: "RB1", position: "RB", player: null },
+      { name: "RB2", position: "RB", player: null },
+      { name: "TE", position: "TE", player: null },
+      { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+      { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+    ], isDrafting: false },
+    { name: "Team 4", isAI: true, roster: [
+      { name: "QB", position: "QB", player: null },
+      { name: "WR1", position: "WR", player: null },
+      { name: "WR2", position: "WR", player: null },
+      { name: "RB1", position: "RB", player: null },
+      { name: "RB2", position: "RB", player: null },
+      { name: "TE", position: "TE", player: null },
+      { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+      { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+    ], isDrafting: false },
+    { name: "Team 5", isAI: true, roster: [
+      { name: "QB", position: "QB", player: null },
+      { name: "WR1", position: "WR", player: null },
+      { name: "WR2", position: "WR", player: null },
+      { name: "RB1", position: "RB", player: null },
+      { name: "RB2", position: "RB", player: null },
+      { name: "TE", position: "TE", player: null },
+      { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+      { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+    ], isDrafting: false },
+    { name: "Team 6", isAI: true, roster: [
+      { name: "QB", position: "QB", player: null },
+      { name: "WR1", position: "WR", player: null },
+      { name: "WR2", position: "WR", player: null },
+      { name: "RB1", position: "RB", player: null },
+      { name: "RB2", position: "RB", player: null },
+      { name: "TE", position: "TE", player: null },
+      { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+      { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+    ], isDrafting: false },
+    { name: "Team 7", isAI: true, roster: [
+      { name: "QB", position: "QB", player: null },
+      { name: "WR1", position: "WR", player: null },
+      { name: "WR2", position: "WR", player: null },
+      { name: "RB1", position: "RB", player: null },
+      { name: "RB2", position: "RB", player: null },
+      { name: "TE", position: "TE", player: null },
+      { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+      { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+    ], isDrafting: false },
+    { name: "Team 8", isAI: true, roster: [
+      { name: "QB", position: "QB", player: null },
+      { name: "WR1", position: "WR", player: null },
+      { name: "WR2", position: "WR", player: null },
+      { name: "RB1", position: "RB", player: null },
+      { name: "RB2", position: "RB", player: null },
+      { name: "TE", position: "TE", player: null },
+      { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+      { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+    ], isDrafting: false },
+    { name: "Team 9", isAI: true, roster: [
+      { name: "QB", position: "QB", player: null },
+      { name: "WR1", position: "WR", player: null },
+      { name: "WR2", position: "WR", player: null },
+      { name: "RB1", position: "RB", player: null },
+      { name: "RB2", position: "RB", player: null },
+      { name: "TE", position: "TE", player: null },
+      { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+      { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+    ], isDrafting: false },
+    { name: "Team 10", isAI: true, roster: [
+      { name: "QB", position: "QB", player: null },
+      { name: "WR1", position: "WR", player: null },
+      { name: "WR2", position: "WR", player: null },
+      { name: "RB1", position: "RB", player: null },
+      { name: "RB2", position: "RB", player: null },
+      { name: "TE", position: "TE", player: null },
+      { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+      { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+    ], isDrafting: false },
+    { name: "Team 11", isAI: true, roster: [
+      { name: "QB", position: "QB", player: null },
+      { name: "WR1", position: "WR", player: null },
+      { name: "WR2", position: "WR", player: null },
+      { name: "RB1", position: "RB", player: null },
+      { name: "RB2", position: "RB", player: null },
+      { name: "TE", position: "TE", player: null },
+      { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+      { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+    ], isDrafting: false },
+    { name: "Team 12", isAI: true, roster: [
+      { name: "QB", position: "QB", player: null },
+      { name: "WR1", position: "WR", player: null },
+      { name: "WR2", position: "WR", player: null },
+      { name: "RB1", position: "RB", player: null },
+      { name: "RB2", position: "RB", player: null },
+      { name: "TE", position: "TE", player: null },
+      { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+      { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+    ], isDrafting: false }
   ]);
 
   // The currentTeamIndex, isUserSelection, and isDraftFinished variables are used to keep track of the current team that is on the clock and whether the draft has finished, respectively.
@@ -80,7 +177,7 @@ export const useDraftStore = defineStore('draft', () => {
       //   // For now the draft will end at the 12th team until I flip the teams array around after each round to make it a snakeDraft
       //   // const availableRosterSpots = getAvailableRosterSpots(currentTeam);
 
-        
+
       // }, 30000);
     }
 
@@ -100,34 +197,42 @@ export const useDraftStore = defineStore('draft', () => {
     }, 5000);
   }
   function addPlayer(player) {
+    // This function seems to always prioritize the "WR" position and will populate both WR and FLEX positions before adding a RB
+    // Check the roster to see if a there's an open slot for the most needed position.  
+    // This can be programmatically achieved by checking to see if a slot in a position is filled.  If it is then fill another slot ie. RB instead of the FLEX
     const team = teams.value[currentTeamIndex.value];
-    console.log(team.roster) 
+    console.log(team.roster)
     const rosterPlayer = team.roster.find(p => p.position == player.Position && p.player == null);
+    const flex1 = team.roster.find(p => p.name == "FLEX1" && p.position.includes(player.Position) && p.player == null);
+    const flex2 = team.roster.find(p => p.name == "FLEX2" && p.position.includes(player.Position) && p.player == null);
+
     console.log(rosterPlayer)
+    console.log(flex1)
+    console.log(flex2)
     if (rosterPlayer) {
       rosterPlayer.player = player;
       console.log(rosterPlayer)
-    } else {
-      const flex1 = roster.value.positions.find(p => p.name == "FLEX1" && p.position.includes(player.Position) && p.player == null);
-      const flex2 = roster.value.positions.find(p => p.name == "FLEX2" && p.position.includes(player.Position) && p.player == null);
-      if (flex1) {
-        flex1.player = player;
-      } else if (flex2) {
-        flex2.player = player;
-      }
     }
+    else if (flex1) {
+      flex1.player = player;
+    } else if (flex2) {
+      flex2.player = player;
+    }
+
     console.log(isUserSelection.value)
     if (isUserSelection.value) {
       isUserSelection.value = false;
     }
     console.log(isUserSelection.value)
     removePlayer(player)
-    if (roster.value.positions.every(p => p.player != null)) {
+    if (team.roster.every(p => p.player != null)) {
 
-      addTeamToLeague(team, roster.value);
+      addTeamToLeague(team, team.roster);
     }
     team.isDrafting = false
-    currentTeamIndex.value += 1;
+    // Draft is getting to the 8th team then beginning at the teams[0] again.
+    // There are 12 teams that need to cycle through then go back to beginning.
+    currentTeamIndex.value = (currentTeamIndex.value + 1) % team.roster.length;
     console.log("Next team's turn...")
     draft();
 
@@ -156,7 +261,7 @@ export const useDraftStore = defineStore('draft', () => {
       return rosterPlayer || flex1 || flex2;
     });
   }
-  function getBestPlayerAvailable(roster){
+  function getBestPlayerAvailable(roster) {
     console.log(roster)
     console.log("Getting best player available...")
     const availablePlayers = top200.value
@@ -167,19 +272,19 @@ export const useDraftStore = defineStore('draft', () => {
     const bestTE = availablePlayers.find(p => p.Position == "TE")
     const bestPlayers = ref([])
     bestPlayers.value.push(bestQB, bestWR, bestRB, bestTE)
-    const sortedBestPlayers = bestPlayers.value.sort((p1,p2) => p1.AverageDraftPosition - p2.AverageDraftPosition)
-    
+    const sortedBestPlayers = bestPlayers.value.sort((p1, p2) => p1.AverageDraftPosition - p2.AverageDraftPosition)
+
     const bestPlayer = sortedBestPlayers[0]
     return bestPlayer
-    }
+  }
 
-    
-    // if(roster.position === bestWR.Position || bestRB.Position || bestTE.Position && roster.player === null){
-    //   const bestPlayer = 
-    // }
-    // return bestPlayer
-    
-  
+
+  // if(roster.position === bestWR.Position || bestRB.Position || bestTE.Position && roster.player === null){
+  //   const bestPlayer = 
+  // }
+  // return bestPlayer
+
+
   // The endDraft() function sets isDraftFinished to true and logs a message to the console indicating that the draft has finished.
   function endDraft() {
     isDraftFinished.value = true;
@@ -189,5 +294,5 @@ export const useDraftStore = defineStore('draft', () => {
 
     top200.value = top200.value.filter(p => p != player)
   }
-  return { startDraft, endDraft, roster, league, teams, addPlayer, isUserSelection }
+  return { startDraft, endDraft, league, teams, addPlayer, isUserSelection }
 })
