@@ -167,7 +167,7 @@ export const useDraftStore = defineStore('draft', () => {
       // const availableRosterSpots = getAvailableRosterSpots(currentTeam);
 
       draftAI(currentTeam.roster)
-      currentTeam.isDrafting = false
+      
       // draftAI(currentTeam);
     } else {
       console.log("User is up...")
@@ -186,7 +186,6 @@ export const useDraftStore = defineStore('draft', () => {
   // The draftAI() function simulates an AI-controlled team's drafting behavior. It first checks if there are any available players to draft by calling the getAvailablePlayers() function. If there are no available players, the endDraft() function is called to end the draft. If there are available players, the AI randomly selects one of them to draft by calling the addPlayer() function. The currentTeamIndex variable is then incremented to move on to the next team, and the draft() function is called again.
   function draftAI(team) {
     setTimeout(() => {
-
       const availableRosterSpots = getAvailableRosterSpots(team);
       if (availableRosterSpots.length == 0) {
         endDraft();
@@ -194,7 +193,7 @@ export const useDraftStore = defineStore('draft', () => {
       }
       const bestPlayerAvailable = getBestPlayerAvailable(availableRosterSpots);
       addPlayer(bestPlayerAvailable);
-    }, 5000);
+    }, 3000);
   }
   function addPlayer(player) {
     // This function seems to always prioritize the "WR" position and will populate both WR and FLEX positions before adding a RB
@@ -206,16 +205,15 @@ export const useDraftStore = defineStore('draft', () => {
     const flex1 = team.roster.find(p => p.name == "FLEX1" && p.position.includes(player.Position) && p.player == null);
     const flex2 = team.roster.find(p => p.name == "FLEX2" && p.position.includes(player.Position) && p.player == null);
 
-    console.log(rosterPlayer)
-    console.log(flex1)
-    console.log(flex2)
+    
     if (rosterPlayer) {
       rosterPlayer.player = player;
       console.log(rosterPlayer)
     }
     else if (flex1) {
       flex1.player = player;
-    } else if (flex2) {
+    }
+    else if (flex2) {
       flex2.player = player;
     }
 
@@ -229,11 +227,11 @@ export const useDraftStore = defineStore('draft', () => {
 
       addTeamToLeague(team, team.roster);
     }
-    team.isDrafting = false
     // Draft is getting to the 8th team then beginning at the teams[0] again.
     // There are 12 teams that need to cycle through then go back to beginning.
-    currentTeamIndex.value = (currentTeamIndex.value + 1) % team.roster.length;
+    currentTeamIndex.value = (currentTeamIndex.value + 1) % teams.value.length;
     console.log("Next team's turn...")
+    team.isDrafting = false
     draft();
 
   }
@@ -264,6 +262,7 @@ export const useDraftStore = defineStore('draft', () => {
   function getBestPlayerAvailable(roster) {
     console.log(roster)
     console.log("Getting best player available...")
+    getMostNeededRosterSpot(roster)
     const availablePlayers = top200.value
     // Get the best player using highest ADP and positions not filled yet on the roster.  
     const bestQB = availablePlayers.find(p => p.Position == "QB")
@@ -273,16 +272,14 @@ export const useDraftStore = defineStore('draft', () => {
     const bestPlayers = ref([])
     bestPlayers.value.push(bestQB, bestWR, bestRB, bestTE)
     const sortedBestPlayers = bestPlayers.value.sort((p1, p2) => p1.AverageDraftPosition - p2.AverageDraftPosition)
-
     const bestPlayer = sortedBestPlayers[0]
     return bestPlayer
   }
+  function getMostNeededRosterSpot(roster){
 
-
-  // if(roster.position === bestWR.Position || bestRB.Position || bestTE.Position && roster.player === null){
-  //   const bestPlayer = 
-  // }
-  // return bestPlayer
+    console.log("Checking most needed position from this roster...",roster)
+    
+}
 
 
   // The endDraft() function sets isDraftFinished to true and logs a message to the console indicating that the draft has finished.
