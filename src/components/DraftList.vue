@@ -3,7 +3,7 @@
 import { useDraftStore } from "../stores/draft";
 import { storeToRefs } from "pinia";
 
-const { addPlayer } = useDraftStore();
+const { addPlayerUser } = useDraftStore();
 const { isUserSelection } = storeToRefs(useDraftStore());
 defineProps({
   players: Array,
@@ -21,7 +21,7 @@ defineProps({
     </thead>
     <tbody>
       <tr
-        v-for="(player, idx) in players"
+        v-for="player in players"
         :key="player.PlayerID"
         :player="player"
         class="pa-4 ma-2"
@@ -37,9 +37,9 @@ defineProps({
       >
         <td>{{ player.Name }}</td>
         <td>{{ player.Position }}</td>
-        <td>{{ idx + 1 }}</td>
+        <td>{{ player.AverageDraftPosition }}</td>
         <td>
-          <v-btn v-if="isUserSelection" :player="player" @click="addPlayer(player)"
+          <v-btn v-if="isUserSelection" :player="player" @click="addPlayerUser(player)"
             >ADD</v-btn
           >
         </td>

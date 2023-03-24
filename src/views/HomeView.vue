@@ -1,24 +1,24 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useManagerStore } from "../stores/managers";
 
 const { createTeam } = useManagerStore();
 const welcomeIntro = ref({
   msg: "Welcome to the reDraft Fantasy Football Simulator...",
-  isTyping: false,
+  isTyping: true,
 });
 const teamPrompt = ref({
   msg: "First, enter a team name: ",
   input: "",
-  isTyping: false,
+  isTyping: true,
 });
-const teamInput = ref({ isTyping: false });
+// const teamInput = ref({ isTyping: true });
 
-function toggleTyping(item) {
-  console.log(item.isTyping);
-  item.isTyping = !item.isTyping;
-  console.log(item.isTyping);
-}
+// function toggleTyping(item) {
+//   console.log(item.isTyping);
+//   item.isTyping = !item.isTyping;
+//   console.log(item.isTyping);
+// }
 
 // setTimeout(toggleTyping(teamPrompt), 4000);
 // setTimeout(toggleTyping(teamInput), 6000);
@@ -29,36 +29,32 @@ function toggleTyping(item) {
 // This will then trigger the render for teamPrompt.msg
 // Once the msg is fully rendered (after 2s), set teamPrompt.isTyping = false
 // This will trigger the v-text-field to render
-onMounted(() => {
-  console.log(welcomeIntro.value.isTyping);
-  setTimeout(toggleTyping, 1000, welcomeIntro.value);
-  setTimeout(toggleTyping, 4000, teamPrompt.value);
-  setTimeout(toggleTyping, 5500, teamInput.value);
-});
+// onMounted(() => {
+//   console.log(welcomeIntro.value.isTyping);
+//   setTimeout(toggleTyping, 1000, welcomeIntro.value);
+//   setTimeout(toggleTyping, 4000, teamPrompt.value);
+//   setTimeout(toggleTyping, 5500, teamInput.value);
+// });
 </script>
 
 <template>
-  <v-container fluid>
-    <v-row>
+  <v-container fluid class="pa-6 home-container">
+    <v-row align="center" justify="center">
       <v-col cols="12">
-        <h1 v-if="welcomeIntro.isTyping" class="typed">
+        <h1>
           {{ welcomeIntro.msg }}
         </h1>
       </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <p v-if="teamPrompt.isTyping" class="typed">
+      <v-col cols="12" sm="6" md="6" lg="6">
+        <p>
           {{ teamPrompt.msg }}
         </p>
       </v-col>
-    </v-row>
-    <v-row
-      ><v-col cols="4">
+      <v-col cols="12" sm="6" md="6" lg="6">
         <v-form ref="form" @submit.prevent="createTeam(teamPrompt.input)">
           <v-text-field
+            width="300"
             bgColor="white"
-            v-if="teamInput.isTyping"
             v-model="teamPrompt.input"
           ></v-text-field
         ></v-form>
@@ -66,7 +62,10 @@ onMounted(() => {
     </v-row>
   </v-container>
 </template>
-<style>
+<style scoped>
+.home-container {
+  max-width: 800px;
+}
 .typed {
   overflow: hidden;
   white-space: nowrap;
