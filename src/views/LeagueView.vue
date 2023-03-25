@@ -31,12 +31,11 @@ onMounted(() => {
       <v-col cols="12">
         <h1>Welcome {{ manager.teamName }}</h1>
 
-        <v-spacer></v-spacer>
         <v-btn @click="startDraft">Start Draft</v-btn>
       </v-col>
       <v-col cols="12" v-if="!isDraftFinished">
         <v-row>
-          <v-col cols="3" v-for="(team, idx) in teams" :key="idx"
+          <v-col cols="12" sm="6" md="3" v-for="(team, idx) in teams" :key="idx"
             ><v-card
               ><v-card-title :class="team.isDrafting ? 'green' : 'white'">{{
                 team.name
@@ -60,11 +59,11 @@ onMounted(() => {
             </v-tabs></v-row
           > -->
 
-    <v-row align="start" justify="center" class="router-row">
+    <v-row v-if="!isDraftFinished" align="start" justify="center" class="router-row">
       <v-col cols="12" sm="6" md="4" lg="4">
         <TeamRoster />
       </v-col>
-      <v-col v-if="!isDraftFinished" cols="12" sm="6" md="6" lg="6">
+      <v-col cols="12" sm="6" md="6" lg="6">
         <DraftList :players="draftList" />
       </v-col>
     </v-row>
