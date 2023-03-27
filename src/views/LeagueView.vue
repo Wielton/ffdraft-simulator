@@ -31,7 +31,7 @@ onMounted(() => {
       <v-col cols="12">
         <h1>Welcome {{ manager.teamName }}</h1>
 
-        <v-btn @click="startDraft">Start Draft</v-btn>
+        <v-btn v-if="isDraftFinished" @click="startDraft">Start Draft</v-btn>
       </v-col>
       <v-col cols="12" v-if="!isDraftFinished">
         <v-row>

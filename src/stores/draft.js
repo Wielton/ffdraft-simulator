@@ -72,102 +72,102 @@ export const useDraftStore = defineStore('draft', () => {
         { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
       ], isDrafting: false
     },
-    // {
-    //   name: "Team 5", isAI: true, roster: [
-    //     { name: "QB", position: "QB", player: null },
-    //     { name: "WR1", position: "WR", player: null },
-    //     { name: "WR2", position: "WR", player: null },
-    //     { name: "RB1", position: "RB", player: null },
-    //     { name: "RB2", position: "RB", player: null },
-    //     { name: "TE", position: "TE", player: null },
-    //     { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
-    //     { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
-    //   ], isDrafting: false
-    // },
-    // {
-    //   name: "Team 6", isAI: true, roster: [
-    //     { name: "QB", position: "QB", player: null },
-    //     { name: "WR1", position: "WR", player: null },
-    //     { name: "WR2", position: "WR", player: null },
-    //     { name: "RB1", position: "RB", player: null },
-    //     { name: "RB2", position: "RB", player: null },
-    //     { name: "TE", position: "TE", player: null },
-    //     { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
-    //     { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
-    //   ], isDrafting: false
-    // },
-    // {
-    //   name: "Team 7", isAI: true, roster: [
-    //     { name: "QB", position: "QB", player: null },
-    //     { name: "WR1", position: "WR", player: null },
-    //     { name: "WR2", position: "WR", player: null },
-    //     { name: "RB1", position: "RB", player: null },
-    //     { name: "RB2", position: "RB", player: null },
-    //     { name: "TE", position: "TE", player: null },
-    //     { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
-    //     { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
-    //   ], isDrafting: false
-    // },
-    // {
-    //   name: "Team 8", isAI: true, roster: [
-    //     { name: "QB", position: "QB", player: null },
-    //     { name: "WR1", position: "WR", player: null },
-    //     { name: "WR2", position: "WR", player: null },
-    //     { name: "RB1", position: "RB", player: null },
-    //     { name: "RB2", position: "RB", player: null },
-    //     { name: "TE", position: "TE", player: null },
-    //     { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
-    //     { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
-    //   ], isDrafting: false
-    // },
-    // {
-    //   name: "Team 9", isAI: true, roster: [
-    //     { name: "QB", position: "QB", player: null },
-    //     { name: "WR1", position: "WR", player: null },
-    //     { name: "WR2", position: "WR", player: null },
-    //     { name: "RB1", position: "RB", player: null },
-    //     { name: "RB2", position: "RB", player: null },
-    //     { name: "TE", position: "TE", player: null },
-    //     { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
-    //     { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
-    //   ], isDrafting: false
-    // },
-    // {
-    //   name: "Team 10", isAI: true, roster: [
-    //     { name: "QB", position: "QB", player: null },
-    //     { name: "WR1", position: "WR", player: null },
-    //     { name: "WR2", position: "WR", player: null },
-    //     { name: "RB1", position: "RB", player: null },
-    //     { name: "RB2", position: "RB", player: null },
-    //     { name: "TE", position: "TE", player: null },
-    //     { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
-    //     { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
-    //   ], isDrafting: false
-    // },
-    // {
-    //   name: "Team 11", isAI: true, roster: [
-    //     { name: "QB", position: "QB", player: null },
-    //     { name: "WR1", position: "WR", player: null },
-    //     { name: "WR2", position: "WR", player: null },
-    //     { name: "RB1", position: "RB", player: null },
-    //     { name: "RB2", position: "RB", player: null },
-    //     { name: "TE", position: "TE", player: null },
-    //     { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
-    //     { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
-    //   ], isDrafting: false
-    // },
-    // {
-    //   name: "Team 12", isAI: true, roster: [
-    //     { name: "QB", position: "QB", player: null },
-    //     { name: "WR1", position: "WR", player: null },
-    //     { name: "WR2", position: "WR", player: null },
-    //     { name: "RB1", position: "RB", player: null },
-    //     { name: "RB2", position: "RB", player: null },
-    //     { name: "TE", position: "TE", player: null },
-    //     { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
-    //     { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
-    //   ], isDrafting: false
-    // }
+    {
+      name: "Team 5", isAI: true, roster: [
+        { name: "QB", position: "QB", player: null },
+        { name: "WR1", position: "WR", player: null },
+        { name: "WR2", position: "WR", player: null },
+        { name: "RB1", position: "RB", player: null },
+        { name: "RB2", position: "RB", player: null },
+        { name: "TE", position: "TE", player: null },
+        { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+        { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+      ], isDrafting: false
+    },
+    {
+      name: "Team 6", isAI: true, roster: [
+        { name: "QB", position: "QB", player: null },
+        { name: "WR1", position: "WR", player: null },
+        { name: "WR2", position: "WR", player: null },
+        { name: "RB1", position: "RB", player: null },
+        { name: "RB2", position: "RB", player: null },
+        { name: "TE", position: "TE", player: null },
+        { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+        { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+      ], isDrafting: false
+    },
+    {
+      name: "Team 7", isAI: true, roster: [
+        { name: "QB", position: "QB", player: null },
+        { name: "WR1", position: "WR", player: null },
+        { name: "WR2", position: "WR", player: null },
+        { name: "RB1", position: "RB", player: null },
+        { name: "RB2", position: "RB", player: null },
+        { name: "TE", position: "TE", player: null },
+        { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+        { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+      ], isDrafting: false
+    },
+    {
+      name: "Team 8", isAI: true, roster: [
+        { name: "QB", position: "QB", player: null },
+        { name: "WR1", position: "WR", player: null },
+        { name: "WR2", position: "WR", player: null },
+        { name: "RB1", position: "RB", player: null },
+        { name: "RB2", position: "RB", player: null },
+        { name: "TE", position: "TE", player: null },
+        { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+        { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+      ], isDrafting: false
+    },
+    {
+      name: "Team 9", isAI: true, roster: [
+        { name: "QB", position: "QB", player: null },
+        { name: "WR1", position: "WR", player: null },
+        { name: "WR2", position: "WR", player: null },
+        { name: "RB1", position: "RB", player: null },
+        { name: "RB2", position: "RB", player: null },
+        { name: "TE", position: "TE", player: null },
+        { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+        { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+      ], isDrafting: false
+    },
+    {
+      name: "Team 10", isAI: true, roster: [
+        { name: "QB", position: "QB", player: null },
+        { name: "WR1", position: "WR", player: null },
+        { name: "WR2", position: "WR", player: null },
+        { name: "RB1", position: "RB", player: null },
+        { name: "RB2", position: "RB", player: null },
+        { name: "TE", position: "TE", player: null },
+        { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+        { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+      ], isDrafting: false
+    },
+    {
+      name: "Team 11", isAI: true, roster: [
+        { name: "QB", position: "QB", player: null },
+        { name: "WR1", position: "WR", player: null },
+        { name: "WR2", position: "WR", player: null },
+        { name: "RB1", position: "RB", player: null },
+        { name: "RB2", position: "RB", player: null },
+        { name: "TE", position: "TE", player: null },
+        { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+        { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+      ], isDrafting: false
+    },
+    {
+      name: "Team 12", isAI: true, roster: [
+        { name: "QB", position: "QB", player: null },
+        { name: "WR1", position: "WR", player: null },
+        { name: "WR2", position: "WR", player: null },
+        { name: "RB1", position: "RB", player: null },
+        { name: "RB2", position: "RB", player: null },
+        { name: "TE", position: "TE", player: null },
+        { name: "FLEX1", position: ["WR", "RB", "TE"], player: null },
+        { name: "FLEX2", position: ["WR", "RB", "TE"], player: null }
+      ], isDrafting: false
+    }
   ]);
   // The currentTeamIndex, isUserSelection, and isDraftFinished variables are used to keep track of the current team that is on the clock and whether the draft has finished, respectively.
   const currentTeamIndex = ref(0);
@@ -237,169 +237,195 @@ export const useDraftStore = defineStore('draft', () => {
     return bestPlayers
   }
   function addPlayerAI(rosterSpots) {
-    console.log(rosterSpots)
     const topPlayers = getBestPlayersAvailable(draftList.value)
-    console.log(topPlayers.value)
     const bestPlayer = ref(null)
-    const qb = ref(null)
-    const wr1 = ref(null)
-    const wr2 = ref(null)
-    const rb1 = ref(null)
-    const rb2 = ref(null)
-    const te = ref(null)
-    const flex1 = ref(null)
-    const flex2 = ref(null)
-
-    // Handle QB
-    qb.value = rosterSpots.find(p => p.name == "QB" && p.player == null)
-    // Handle WR
-    wr1.value = rosterSpots.find(p => p.name == "WR1" && p.player == null)
-    wr2.value = rosterSpots.find(p => p.name == "WR2" && p.player == null)
-
-    // Handle RB
-    rb1.value = rosterSpots.find(p => p.name == "RB1" && p.player == null)
-    rb2.value = rosterSpots.find(p => p.name == "RB2" && p.player == null)
-
-
-    // Handle TE
-    te.value = rosterSpots.find(p => p.name == "TE" && p.player == null)
-
-    // Handle flex1 and flex2 positions
-    flex1.value = rosterSpots.find(p => p.name == "FLEX1" && p.player == null)
-    flex2.value = rosterSpots.find(p => p.name == "FLEX2" && p.player == null)
-    console.log("All available positions: ", qb.value, wr1.value, wr2.value, rb1.value, rb2.value, te.value, flex1.value, flex2.value)
-
     // Get best player
     bestPlayer.value = topPlayers.value.reduce(
       (prev, current) => {
-        return prev.AverageDraftPosition < current.AverageDraftPosition ? prev : current
+        return prev.AverageDraftPositionPPR < current.AverageDraftPositionPPR ? prev : current
       }
     );
-    console.log("Best player: ", bestPlayer.value)
-    if (bestPlayer.value.Position == "QB") {
-      console.log("qb: ", qb.value)
-      if (!qb.value) {
-        if (wr2.value) {
+    // if (bestPlayer.value.Position == "QB") {
+    //   if (qb.value) {
+    //     qb.value.player = bestPlayer.value
+    //     removePlayer(bestPlayer.value)
+    //   }
+    //   else if (wr2.value) {
 
-          wr2.value.player = topPlayers.value.find(p => p.Position == "WR")
-          removePlayer(wr2.value.player)
-        } else if (rb2.value) {
-          rb2.value.player = topPlayers.value.find(p => p.Position == "RB")
-          removePlayer(rb2.value.player)
-        } else if (te.value) {
-          te.value.player = topPlayers.value.find(p => p.Position == "TE")
-          removePlayer(te.value.player)
-        }
-      } else if (flex1.value || flex2.value) {
-        if (flex1.value) {
-          flex1.value.player = topPlayers.value.find(p => p.Position == "RB" || p.Position == "WR");
-          removePlayer(flex1.value.player)
+    //       wr2.value.player = topPlayers.value.find(p => p.Position == "WR")
+    //       removePlayer(wr2.value.player)
+    //     } else if (rb2.value) {
+    //       rb2.value.player = topPlayers.value.find(p => p.Position == "RB")
+    //       removePlayer(rb2.value.player)
+    //     } else if (te.value) {
+    //       te.value.player = topPlayers.value.find(p => p.Position == "TE")
+    //       removePlayer(te.value.player)
+    //     }
+    //     else if (flex1.value || flex2.value) {
+    //     if (flex1.value) {
+    //       flex1.value.player = topPlayers.value.find(p => p.Position == "RB" || p.Position == "WR");
+    //       removePlayer(flex1.value.player)
+    //     } else {
+    //       flex2.value.player = topPlayers.value.find(p => p.Position == "RB" || p.Position == "WR");
+    //       removePlayer(flex2.value.player)
+    //     }
+    //   }
+
+    // } 
+
+
+    // else if (bestPlayer.value.Position == "TE") {
+    //   if (te.value) {
+    //     te.value.player = bestPlayer.value
+    //     removePlayer(bestPlayer.value)
+    //   }
+    //   else if (wr2.value || rb2.value) {
+    //       if (wr2.value) {
+    //         wr2.value.player = topPlayers.value.find(p => p.Position == "WR")
+    //         removePlayer(wr2.value.player)
+    //       } else {
+    //         rb2.value.player = topPlayers.value.find(p => p.Position == "RB")
+    //         removePlayer(rb2.value.player)
+    //       }
+    //     } else if (flex1.value || flex2.value) {
+    //       if (flex1.value) {
+    //         flex1.value.player = topPlayers.value.find(p => p.Position == "RB" || p.Position == "WR");
+    //         removePlayer(flex1.value.player)
+    //       } else {
+    //         flex2.value.player = topPlayers.value.find(p => p.Position == "RB" || p.Position == "WR");
+    //         removePlayer(flex2.value.player)
+    //       }
+    //     }
+
+
+
+    // }
+    // else if (bestPlayer.value.Position == "WR") {
+    //   if (wr1.value) {
+    //     wr1.value.player = bestPlayer.value
+    //     removePlayer(bestPlayer.value)
+    //   } else if (wr2.value) {
+    //     wr2.value.player = bestPlayer.value
+    //     removePlayer(bestPlayer.value)
+    //   } else if (rb1.value) {
+    //     rb1.value.player = topPlayers.value.find(p => p.Position == "RB");
+    //     removePlayer(rb1.value.player)
+    //   } else if (rb2.value) {
+    //     rb2.value.player = topPlayers.value.find(p => p.Position == "RB");
+    //     removePlayer(rb2.value.player)
+    //   } else if (flex1.value) {
+    //     flex1.value.player = bestPlayer.value
+    //     removePlayer(bestPlayer.value)
+    //   } else if (flex2.value) {
+    //     flex2.value.player = bestPlayer.value
+    //     removePlayer(bestPlayer.value)
+    //   }
+
+
+    // }
+    // else if (bestPlayer.value.Position == "RB") {
+    //   if (rb1.value) {
+    //     rb1.value.player = bestPlayer.value
+    //     removePlayer(bestPlayer.value)
+    //     console.log("Added RB1")
+    //   } else if (rb2.value) {
+    //     rb2.value.player = bestPlayer.value
+    //     removePlayer(bestPlayer.value)
+    //     console.log("Added RB2")
+    //   } else if (wr1.value) {
+    //     wr1.value.player = topPlayers.value.find(p => p.Position == "WR");
+    //     removePlayer(wr1.value.player)
+    //   } else if (flex1.value) {
+    //     flex1.value.player = bestPlayer.value
+    //     removePlayer(bestPlayer.value)
+    //   } else if (flex2.value) {
+    //     flex2.value.player = bestPlayer.value
+    //     removePlayer(bestPlayer.value)
+    //   }
+    // }
+
+    // if (qb.value && !wr2.value && !rb2.value) {
+    //   qb.value.player = topPlayers.value.find(p => p.Position == "QB")
+    //   removePlayer(qb.value.player)
+    // } else if (te.value && !flex2.value) {
+    //   te.value.player = topPlayers.value.find(p => p.Position == "TE")
+    //   removePlayer(te.value.player)
+    // } else if ((!wr1.value && wr2.value ) || (!rb1.value && rb2.value)) {
+    //   if (wr2.value) {
+    //     wr2.value = topPlayers.value.find(p => p.Position == "WR")
+    //     removePlayer(wr2.value.player)
+    //   } else {
+    //     rb2.value = topPlayers.value.find(p => p.Position == "RB")
+    //     removePlayer(rb2.value.player)
+    //   }
+
+    // } 
+
+
+    // Get the best player then, find matching position, then set player in that position
+
+    const bestSpot = ref(null)
+    bestSpot.value = rosterSpots.find(p => p.position == bestPlayer.value.Position)
+    console.log(bestSpot.value)
+    if (bestSpot.value) {
+      bestSpot.value.player = bestPlayer.value
+      removePlayer(bestPlayer.value)
+    } else {
+      const availableSpot = ref(null)
+      availableSpot.value = rosterSpots.find(p => p.name != "FLEX1" && p.name != "FLEX2")
+      if (availableSpot.value) {
+        availableSpot.value.player = topPlayers.value.find(p => p.Position == availableSpot.value.position)
+        removePlayer(availableSpot.value.player)
+      } else {
+        const availableFlexSpot = ref(null)
+        availableFlexSpot.value = rosterSpots.find(p => p.name.includes("FLEX"))
+        if (availableFlexSpot.value) {
+          availableFlexSpot.value.player = bestPlayer.value
+          removePlayer(bestPlayer.value)
         } else {
-          flex2.value.player = topPlayers.value.find(p => p.Position == "RB" || p.Position == "WR");
-          removePlayer(flex2.value.player)
+          // Handle QB
+          const qb = ref(null)
+          const getQB = rosterSpots.find(p => p.name == "QB")
+          if (getQB) {
+            qb.value = getQB
+            qb.value.player = topPlayers.value.find(p => p.Position == "QB")
+            removePlayer(qb.value.player)
+          } else {
+            // Handle TE
+            const te = ref(null)
+            const getTE = rosterSpots.find(p => p.name == "TE")
+            if (getTE) {
+              te.value = getTE
+              te.value.player = topPlayers.value.find(p => p.Position == "TE")
+              removePlayer(te.value.player)
+            }
+          }
+
         }
       }
-      qb.value.player = bestPlayer.value
-      removePlayer(bestPlayer.value)
-    }
-    
-  
-  else if (bestPlayer.value.Position == "TE") {
-    console.log("qb: ", qb.value)
-    if (!te.value) {
-      if (wr2.value || rb2.value) {
-        if (wr2.value) {
-          wr2.value.player = topPlayers.value.find(p => p.Position == "WR")
-          removePlayer(wr2.value.player)
-        } else {
-          rb2.value.player = topPlayers.value.find(p => p.Position == "RB")
-          removePlayer(rb2.value.player)
-        }
-      } else if (flex1.value || flex2.value) {
-        if (flex1.value) {
-          flex1.value.player = topPlayers.value.find(p => p.Position == "RB" || p.Position == "WR");
-          removePlayer(flex1.value.player)
-        } else {
-          flex2.value.player = topPlayers.value.find(p => p.Position == "RB" || p.Position == "WR");
-          removePlayer(flex2.value.player)
-        }
-      }
-    }
-    te.value.player = bestPlayer.value
-    removePlayer(bestPlayer.value)
 
-  }
-  else if (bestPlayer.value.Position == "WR") {
-    console.log("WR: ", bestPlayer.value)
-    if (wr1.value) {
-      wr1.value.player = bestPlayer.value
-      removePlayer(bestPlayer.value)
-    } else if (wr2.value) {
-      wr2.value.player = bestPlayer.value
-      removePlayer(bestPlayer.value)
-    } else if (rb1.value) {
-      rb1.value.player = topPlayers.value.find(p => p.Position == "RB");
-      removePlayer(rb1.value.player)
-    } else if (rb2.value) {
-      rb2.value.player = topPlayers.value.find(p => p.Position == "RB");
-      removePlayer(rb2.value.player)
-    } else if (flex1.value) {
-      flex1.value.player = bestPlayer.value
-      removePlayer(bestPlayer.value)
-    } else if (flex2.value) {
-      flex2.value.player = bestPlayer.value
-      removePlayer(bestPlayer.value)
+
+
+
     }
 
 
-  }
-  else if (bestPlayer.value.Position == "RB") {
-    if (rb1.value) {
-      rb1.value.player = bestPlayer.value
-      removePlayer(bestPlayer.value)
-      console.log("Added RB1")
-    } else if (rb2.value) {
-      rb2.value.player = bestPlayer.value
-      removePlayer(bestPlayer.value)
-      console.log("Added RB2")
-    } else if (wr1.value) {
-      wr1.value.player = topPlayers.value.find(p => p.Position == "WR");
-      removePlayer(wr1.value.player)
-    } else if (flex1.value) {
-      flex1.value.player = bestPlayer.value
-      removePlayer(bestPlayer.value)
-    } else if (flex2.value) {
-      flex2.value.player = bestPlayer.value
-      removePlayer(bestPlayer.value)
+    console.log("Current Roster: ", currentTeam.value.roster)
+    if (currentTeam.value.roster.every(p => p.player != null)) {
+      addTeamToLeague(currentTeam, currentTeam.value.roster);
     }
+    // // The problem I'm getting is that the team doesn't preserve the idx so when the order is reversed
+    // // The idx[0] changes to idx[-1] therefore the players change
+    // if (currentTeamIndex.value === teams.value.length - 1) {
+    //   // teams.value.reverse();
+    //   // currentTeamIndex.value = (currentTeamIndex.value - 1) % teams.value.length;
+    // }
+    currentTeamIndex.value = (currentTeamIndex.value + 1) % teams.value.length;
+    // 
+    console.log("Next team's turn...", currentTeamIndex.value)
+    currentTeam.value.isDrafting = false
+    draft();
   }
-  
-  if (currentTeam.value.roster.every(p => p.player != null)) {
-    addTeamToLeague(currentTeam, currentTeam.value.roster);
-  }
-  // // The problem I'm getting is that the team doesn't preserve the idx so when the order is reversed
-  // // The idx[0] changes to idx[-1] therefore the players change
-  // if (currentTeamIndex.value === teams.value.length - 1) {
-  //   // teams.value.reverse();
-  //   // currentTeamIndex.value = (currentTeamIndex.value - 1) % teams.value.length;
-  // }
-  currentTeamIndex.value = (currentTeamIndex.value + 1) % teams.value.length;
-  // 
-  console.log("Next team's turn...", currentTeamIndex.value)
-  currentTeam.value.isDrafting = false
-  
-  topPlayers.value = null
-  bestPlayer.value = null
-  qb.value = null
-  wr1.value = null
-  wr2.value = null
-  rb1.value = null
-  rb2.value = null
-  te.value = null
-  flex1.value = null
-  flex2.value = null
-  draft();
-}
   function addPlayerUser(player) {
     if (currentTeam.value.isAI) {
       const rosterSpot = currentTeam.value.roster.find(p => p.name.includes(player.Position) && !p.player)
@@ -454,6 +480,7 @@ export const useDraftStore = defineStore('draft', () => {
       name: teamName,
       roster: roster
     });
+    console.log(league.value)
   }
 
   // The getAvailablePlayers() function returns an array of players that are available to be drafted. It does this by filtering a list of all players to find those that can fill a position that has not yet been filled on the team's roster. The find() function is used to find the first position object in the roster variable's positions array that matches the player's position and has a player value of null. The flex1 and flex2 variables are also used to check if the player can fill one of the two flex positions, which can be filled by players of multiple positions.
