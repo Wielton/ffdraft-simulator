@@ -313,10 +313,17 @@ export const useDraftStore = defineStore('draft', () => {
           auxSpot.value.player = topPlayers.value.find(p => p.Position == "RB");
         }
         else {
-          auxSpot.value.player = topPlayers.value.reduce(
-          (prev, current) => {
-            return prev.AverageDraftPositionPPR < current.AverageDraftPositionPPR && prev.Position == "WR" || prev.Position == "RB" ? prev : current
-            });
+          const flexPlayers = ref(null)
+          flexPlayers.value = topPlayers.value.filter(p => p.Position == "WR" || p.Position == "RB")
+          if(flexPlayers.value.length > 1){
+            auxSpot.value.player = flexPlayers.value.reduce(
+              (prev, current) => {
+                return prev.AverageDraftPositionPPR < current.AverageDraftPositionPPR ? prev : current
+              });
+          } else {
+            auxSpot.value.player = flexPlayers.value
+            }
+          
         }
         removePlayer(auxSpot.value.player)
       }
