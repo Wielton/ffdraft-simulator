@@ -308,7 +308,7 @@ export const useDraftStore = defineStore('draft', () => {
       if(auxSpot.value.name.includes("WR") || auxSpot.value.name.includes("RB") || auxSpot.value.name.includes("FLEX")) {
         auxSpot.value.player = topPlayers.value.reduce(
           (prev, current) => {
-            return prev.AverageDraftPositionPPR < current.AverageDraftPositionPPR && prev.Position != "QB" && prev.Position != "TE" ? prev : current
+            return prev.AverageDraftPositionPPR < current.AverageDraftPositionPPR && current.Position != "QB" || current.Position != "TE" ? prev : current
             });
         removePlayer(auxSpot.value.player)
       }
