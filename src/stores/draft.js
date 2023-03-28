@@ -175,6 +175,9 @@ export const useDraftStore = defineStore('draft', () => {
   const isDraftFinished = ref(true);
   const draftList = ref(null)
   const currentTeam = ref(null)
+
+// --------------------------------------------------------------------------------------------------------
+
   function startDraft() {
     draftList.value = top200.value
     console.log("Draft has started")
@@ -184,9 +187,14 @@ export const useDraftStore = defineStore('draft', () => {
     draft();
   }
 
+
+// --------------------------------------------------------------------------------------------------------
+
   // The draft() function is called for each team during the draft process. If the current team is controlled by an AI, the draftAI() function is called. If the current team is controlled by a human user, the user is prompted to select a player to draft.
   function draft() {
-
+    // if(teams.value.every(p => p.roster.every(pos => !pos.player))){
+    //     endDraft();
+    //   }
     currentTeam.value = teams.value[currentTeamIndex.value];
     currentTeam.value.isDrafting = true
     if (currentTeam.value.isAI) {
@@ -212,6 +220,8 @@ export const useDraftStore = defineStore('draft', () => {
 
   }
 
+// --------------------------------------------------------------------------------------------------------
+
   // The draftAI() function simulates an AI-controlled team's drafting behavior. It first checks if there are any available players to draft by calling the getAvailablePlayers() function. If there are no available players, the endDraft() function is called to end the draft. If there are available players, the AI randomly selects one of them to draft by calling the addPlayer() function. The currentTeamIndex variable is then incremented to move on to the next team, and the draft() function is called again.
   function draftAI(team) {
     setTimeout(() => {
@@ -224,6 +234,9 @@ export const useDraftStore = defineStore('draft', () => {
 
     }, 500);
   }
+
+// --------------------------------------------------------------------------------------------------------
+
   function getBestPlayersAvailable(players) {
     const bestPlayers = ref([])
     const topQB = ref(null)
@@ -236,6 +249,9 @@ export const useDraftStore = defineStore('draft', () => {
     bestPlayers.value.push(topTE.value = players.find(p => p.Position == "TE"))
     return bestPlayers
   }
+
+// --------------------------------------------------------------------------------------------------------
+
   function addPlayerAI(rosterSpots) {
     const topPlayers = getBestPlayersAvailable(draftList.value)
     const bestPlayer = ref(null)
@@ -245,187 +261,71 @@ export const useDraftStore = defineStore('draft', () => {
         return prev.AverageDraftPositionPPR < current.AverageDraftPositionPPR ? prev : current
       }
     );
-    // if (bestPlayer.value.Position == "QB") {
-    //   if (qb.value) {
-    //     qb.value.player = bestPlayer.value
-    //     removePlayer(bestPlayer.value)
-    //   }
-    //   else if (wr2.value) {
 
-    //       wr2.value.player = topPlayers.value.find(p => p.Position == "WR")
-    //       removePlayer(wr2.value.player)
-    //     } else if (rb2.value) {
-    //       rb2.value.player = topPlayers.value.find(p => p.Position == "RB")
-    //       removePlayer(rb2.value.player)
-    //     } else if (te.value) {
-    //       te.value.player = topPlayers.value.find(p => p.Position == "TE")
-    //       removePlayer(te.value.player)
-    //     }
-    //     else if (flex1.value || flex2.value) {
-    //     if (flex1.value) {
-    //       flex1.value.player = topPlayers.value.find(p => p.Position == "RB" || p.Position == "WR");
-    //       removePlayer(flex1.value.player)
-    //     } else {
-    //       flex2.value.player = topPlayers.value.find(p => p.Position == "RB" || p.Position == "WR");
-    //       removePlayer(flex2.value.player)
-    //     }
-    //   }
-
-    // } 
-
-
-    // else if (bestPlayer.value.Position == "TE") {
-    //   if (te.value) {
-    //     te.value.player = bestPlayer.value
-    //     removePlayer(bestPlayer.value)
-    //   }
-    //   else if (wr2.value || rb2.value) {
-    //       if (wr2.value) {
-    //         wr2.value.player = topPlayers.value.find(p => p.Position == "WR")
-    //         removePlayer(wr2.value.player)
-    //       } else {
-    //         rb2.value.player = topPlayers.value.find(p => p.Position == "RB")
-    //         removePlayer(rb2.value.player)
-    //       }
-    //     } else if (flex1.value || flex2.value) {
-    //       if (flex1.value) {
-    //         flex1.value.player = topPlayers.value.find(p => p.Position == "RB" || p.Position == "WR");
-    //         removePlayer(flex1.value.player)
-    //       } else {
-    //         flex2.value.player = topPlayers.value.find(p => p.Position == "RB" || p.Position == "WR");
-    //         removePlayer(flex2.value.player)
-    //       }
-    //     }
-
-
-
-    // }
-    // else if (bestPlayer.value.Position == "WR") {
-    //   if (wr1.value) {
-    //     wr1.value.player = bestPlayer.value
-    //     removePlayer(bestPlayer.value)
-    //   } else if (wr2.value) {
-    //     wr2.value.player = bestPlayer.value
-    //     removePlayer(bestPlayer.value)
-    //   } else if (rb1.value) {
-    //     rb1.value.player = topPlayers.value.find(p => p.Position == "RB");
-    //     removePlayer(rb1.value.player)
-    //   } else if (rb2.value) {
-    //     rb2.value.player = topPlayers.value.find(p => p.Position == "RB");
-    //     removePlayer(rb2.value.player)
-    //   } else if (flex1.value) {
-    //     flex1.value.player = bestPlayer.value
-    //     removePlayer(bestPlayer.value)
-    //   } else if (flex2.value) {
-    //     flex2.value.player = bestPlayer.value
-    //     removePlayer(bestPlayer.value)
-    //   }
-
-
-    // }
-    // else if (bestPlayer.value.Position == "RB") {
-    //   if (rb1.value) {
-    //     rb1.value.player = bestPlayer.value
-    //     removePlayer(bestPlayer.value)
-    //     console.log("Added RB1")
-    //   } else if (rb2.value) {
-    //     rb2.value.player = bestPlayer.value
-    //     removePlayer(bestPlayer.value)
-    //     console.log("Added RB2")
-    //   } else if (wr1.value) {
-    //     wr1.value.player = topPlayers.value.find(p => p.Position == "WR");
-    //     removePlayer(wr1.value.player)
-    //   } else if (flex1.value) {
-    //     flex1.value.player = bestPlayer.value
-    //     removePlayer(bestPlayer.value)
-    //   } else if (flex2.value) {
-    //     flex2.value.player = bestPlayer.value
-    //     removePlayer(bestPlayer.value)
-    //   }
-    // }
-
-    // if (qb.value && !wr2.value && !rb2.value) {
-    //   qb.value.player = topPlayers.value.find(p => p.Position == "QB")
-    //   removePlayer(qb.value.player)
-    // } else if (te.value && !flex2.value) {
-    //   te.value.player = topPlayers.value.find(p => p.Position == "TE")
-    //   removePlayer(te.value.player)
-    // } else if ((!wr1.value && wr2.value ) || (!rb1.value && rb2.value)) {
-    //   if (wr2.value) {
-    //     wr2.value = topPlayers.value.find(p => p.Position == "WR")
-    //     removePlayer(wr2.value.player)
-    //   } else {
-    //     rb2.value = topPlayers.value.find(p => p.Position == "RB")
-    //     removePlayer(rb2.value.player)
-    //   }
-
-    // } 
-
-
-    // Get the best player then, find matching position, then set player in that position
-
-    const bestSpot = ref(null)
-    bestSpot.value = rosterSpots.find(p => p.position == bestPlayer.value.Position)
-    console.log(bestSpot.value)
-    if (bestSpot.value) {
+    // Check to see if the best player available matches any core roster spots by matching position
+    // Position can be QB, WR, RB, or TE
+    if (rosterSpots.find(p => p.position == bestPlayer.value.Position)) {
+      // Set that roster position to be that best player and removePlayer()
+      // Get the best roster spot according to the best player available
+      const bestSpot = ref(null)
+      bestSpot.value = rosterSpots.find(p => p.position == bestPlayer.value.Position)
       bestSpot.value.player = bestPlayer.value
+      console.log("Best spot added: ", bestPlayer.value)
       removePlayer(bestPlayer.value)
-    } else {
-      const availableSpot = ref(null)
-      availableSpot.value = rosterSpots.find(p => p.name != "FLEX1" && p.name != "FLEX2")
-      if (availableSpot.value) {
-        availableSpot.value.player = topPlayers.value.find(p => p.Position == availableSpot.value.position)
-        removePlayer(availableSpot.value.player)
-      } else {
-        const availableFlexSpot = ref(null)
-        availableFlexSpot.value = rosterSpots.find(p => p.name.includes("FLEX"))
-        if (availableFlexSpot.value) {
-          availableFlexSpot.value.player = bestPlayer.value
-          removePlayer(bestPlayer.value)
-        } else {
-          // Handle QB
-          const qb = ref(null)
-          const getQB = rosterSpots.find(p => p.name == "QB")
-          if (getQB) {
-            qb.value = getQB
-            qb.value.player = topPlayers.value.find(p => p.Position == "QB")
-            removePlayer(qb.value.player)
-          } else {
-            // Handle TE
-            const te = ref(null)
-            const getTE = rosterSpots.find(p => p.name == "TE")
-            if (getTE) {
-              te.value = getTE
-              te.value.player = topPlayers.value.find(p => p.Position == "TE")
-              removePlayer(te.value.player)
-            }
-          }
+    }
+    // If no match, then check flex positions for WR or RB:
+    else if (rosterSpots.find(p => p.name.includes("FLEX")) && (bestPlayer.value.Position == "WR" || bestPlayer.value.Position == "RB")) {
 
-        }
-      }
+      console.log("Flex spot added... ")
+      const bestFlexSpot = ref(null)
+      bestFlexSpot.value = rosterSpots.find(p => p.name.includes("FLEX"))
+      bestFlexSpot.value.player = bestPlayer.value
+      removePlayer(bestPlayer.value)
 
-
-
-
+    // If no match, check the QB spot: 
+    } else if (rosterSpots.find(p => p.position == "QB")) {
+      console.log("QB added...")
+      const qbSpot = ref(null)
+      qbSpot.value = rosterSpots.find(p => p.position == "QB")
+      qbSpot.value.player = topPlayers.value.find(p => p.Position == "QB")
+      removePlayer(qbSpot.value.player)
+    
+    // If no match, check the TE spot
+    } else if (rosterSpots.find(p => p.position == "TE")) {
+      console.log("TE added...")
+      const teSpot = ref(null)
+      teSpot.value = rosterSpots.find(p => p.position == "TE")
+      teSpot.value.player = topPlayers.value.find(p => p.Position == "TE")
+      removePlayer(teSpot.value.player)
     }
 
+    // If no match, find the next available roster spot,
+    // Then find a matching player from the topPlayers array
+    else {
+      console.log("Getting auxiliary roster spot...")
+      const auxSpot = ref(null)
+      auxSpot.value = rosterSpots.find(p => p.position)
+      if(auxSpot.value.name.includes("WR") || auxSpot.value.name.includes("RB") || auxSpot.value.name.includes("FLEX")) {
+        auxSpot.value.player = topPlayers.value.reduce(
+          (prev, current) => {
+            return prev.AverageDraftPositionPPR < current.AverageDraftPositionPPR && prev.Position != "QB" && prev.Position != "TE" ? prev : current
+            });
+        removePlayer(auxSpot.value.player)
+      }
+}
 
     console.log("Current Roster: ", currentTeam.value.roster)
     if (currentTeam.value.roster.every(p => p.player != null)) {
       addTeamToLeague(currentTeam, currentTeam.value.roster);
     }
-    // // The problem I'm getting is that the team doesn't preserve the idx so when the order is reversed
-    // // The idx[0] changes to idx[-1] therefore the players change
-    // if (currentTeamIndex.value === teams.value.length - 1) {
-    //   // teams.value.reverse();
-    //   // currentTeamIndex.value = (currentTeamIndex.value - 1) % teams.value.length;
-    // }
     currentTeamIndex.value = (currentTeamIndex.value + 1) % teams.value.length;
-    // 
     console.log("Next team's turn...", currentTeamIndex.value)
     currentTeam.value.isDrafting = false
     draft();
   }
+
+// --------------------------------------------------------------------------------------------------------
+
   function addPlayerUser(player) {
     if (currentTeam.value.isAI) {
       const rosterSpot = currentTeam.value.roster.find(p => p.name.includes(player.Position) && !p.player)
@@ -447,33 +347,19 @@ export const useDraftStore = defineStore('draft', () => {
       }
       isUserSelection.value = false;
     }
-    // console.log(player);
-    // This function seems to always prioritize the "WR" position and will populate both WR and FLEX positions before adding a RB
-    // Check the roster to see if a there's an open slot for the most needed position.  
-    // This can be programmatically achieved by checking to see if a slot in a position is filled.  If it is then fill another slot ie. RB instead of the FLEX
-    // Don't use the team index, use the team name or make an ID for each team to add it to that specific team.
-
-    // If the team is AI, its already picked its player, so set the { team.roster.player } as { player }
-    // if (currentTeam.value.isAI) {
-    //   currentTeam.value.roster.position.player = player
-    // } else {
     removePlayer(player)
     if (currentTeam.value.roster.every(p => p.player != null)) {
       addTeamToLeague(currentTeam, currentTeam.value.roster);
     }
-    // The problem I'm getting is that the team doesn't preserve the idx so when the order is reversed
-    // The idx[0] changes to idx[-1] therefore the players change
-    if (currentTeamIndex.value === teams.value.length - 1) {
-      // teams.value.reverse();
-      // currentTeamIndex.value = (currentTeamIndex.value - 1) % teams.value.length;
-    }
     currentTeamIndex.value = (currentTeamIndex.value + 1) % teams.value.length;
-    // 
     console.log("Next team's turn...", currentTeamIndex.value)
     currentTeam.value.isDrafting = false
     draft();
 
   }
+
+
+// --------------------------------------------------------------------------------------------------------
 
   function addTeamToLeague(teamName, roster) {
     league.value.push({
@@ -483,6 +369,9 @@ export const useDraftStore = defineStore('draft', () => {
     console.log(league.value)
   }
 
+
+// --------------------------------------------------------------------------------------------------------
+
   // The getAvailablePlayers() function returns an array of players that are available to be drafted. It does this by filtering a list of all players to find those that can fill a position that has not yet been filled on the team's roster. The find() function is used to find the first position object in the roster variable's positions array that matches the player's position and has a player value of null. The flex1 and flex2 variables are also used to check if the player can fill one of the two flex positions, which can be filled by players of multiple positions.
   function getAvailableRosterSpots(roster) {
     const rosterSpots = roster.filter(p => !p.player);
@@ -491,11 +380,17 @@ export const useDraftStore = defineStore('draft', () => {
     }
   }
 
+
+// --------------------------------------------------------------------------------------------------------
+
   // The endDraft() function sets isDraftFinished to true and logs a message to the console indicating that the draft has finished.
   function endDraft() {
     isDraftFinished.value = true;
     console.log("Draft is finished");
   }
+
+
+// --------------------------------------------------------------------------------------------------------
 
   function removePlayer(player) {
     draftList.value = draftList.value.filter(p => p != player)
