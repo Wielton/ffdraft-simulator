@@ -306,14 +306,18 @@ export const useDraftStore = defineStore('draft', () => {
       const auxSpot = ref(null)
       auxSpot.value = rosterSpots.find(p => p.position)
       if(auxSpot.value.name.includes("WR") || auxSpot.value.name.includes("RB") || auxSpot.value.name.includes("FLEX")) {
-        auxSpot.value.player = topPlayers.value.reduce(
+        if(auxSpot.value.position == "WR") {
+          auxSpot.value.player = topPlayers.value.find(p => p.Position == "WR");
+        }
+        else if(auxSpot.value.position == "RB") {
+          auxSpot.value.player = topPlayers.value.find(p => p.Position == "RB");
+        }
+        else {
+          auxSpot.value.player = topPlayers.value.reduce(
           (prev, current) => {
-            return (prev.AverageDraftPositionPPR < current.AverageDraftPositionPPR) && (prev.Position != "QB" && prev.Position != "TE") ? prev : current
+            return prev.AverageDraftPositionPPR < current.AverageDraftPositionPPR && prev.Position == "WR" || prev.Position == "RB" ? prev : current
             });
-        // console.log(topPlayers.value.reduce(
-        //   (prev, current) => {
-        //     return (prev.AverageDraftPositionPPR < current.AverageDraftPositionPPR) && (prev.Position != "QB" && prev.Position != "TE") ? prev : current
-        //     }))
+        }
         removePlayer(auxSpot.value.player)
       }
 }
