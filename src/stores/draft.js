@@ -175,17 +175,22 @@ export const useDraftStore = defineStore('draft', () => {
   const isDraftFinished = ref(true);
   const draftList = ref(null)
   const currentTeam = ref(null)
-  const draftSelectionTimer = ref(
-    {
-      countDown: 30
+  const draftSelectionTimer = ref(15)
 
-    })
-
-  const timerId = ref(30)
+  const timerId = ref(15)
   function startTimer() {
     timerId.value = setInterval(() => {
-      draftSelectionTimer.value.countDown -= 1
+      draftSelectionTimer.value -= 1
+      if (draftSelectionTimer.value === 0) { 
+        clearInterval(timerId.value)
+        const myAvailSpots = getAvailableRosterSpots(currentTeam.value.roster)
+        addPlayerAI(myAvailSpots)
+        draftSelectionTimer.value = 15
+        isUserSelection.value = false
+      } 
+      
     }, 1000);
+
   }
 
   // --------------------------------------------------------------------------------------------------------
@@ -220,21 +225,20 @@ export const useDraftStore = defineStore('draft', () => {
       // draftAI(currentTeam);
     } else {
       isUserSelection.value = true
-      console.log("User is up...")
-      console.log("Timer started....")
       startTimer()
+      
+      // if (draftSelectionTimer.value === 30) {
+      //   const nextTeamIdx = currentTeamIndex.value + 1
+      //   const nextTeam = teams.value[nextTeamIdx]
+      //   
+      //   console.log(myAvailSpots)
+      //   const nextAvailSpots = getAvailableRosterSpots(nextTeam.roster)
+      //   if (myAvailSpots.length == nextAvailSpots.length) {
+      //     
+      //   }
+      // }
 
 
-
-
-
-      // setTimeout(() => {
-      //   // Prompt user to select player here
-      //   // For now the draft will end at the 12th team until I flip the teams array around after each round to make it a snakeDraft
-      //   // const availableRosterSpots = getAvailableRosterSpots(currentTeam);
-
-
-      // }, 30000);
     }
 
   }
@@ -388,7 +392,7 @@ export const useDraftStore = defineStore('draft', () => {
     currentTeamIndex.value = (currentTeamIndex.value + 1) % teams.value.length;
     console.log("Next team's turn...", currentTeamIndex.value)
     clearInterval(timerId.value)
-    draftSelectionTimer.value.countDown = 30
+    draftSelectionTimer.value = 15
     currentTeam.value.isDrafting = false
     isUserSelection.value = false
     draft();

@@ -61,7 +61,7 @@ onMounted(() => {
         <v-card height="500"
           ><v-card-title>Player Card</v-card-title
           ><v-card-text>
-            <h1>{{ draftSelectionTimer.countDown }}</h1>
+            <h1>{{ draftSelectionTimer }}</h1>
             <p>
               Here will display a draft board with countdown timer and the next best
               player
