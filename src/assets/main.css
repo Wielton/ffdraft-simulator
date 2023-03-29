@@ -2,9 +2,11 @@
 
 
 #app {
+  margin: auto;
   max-width: 100vw;
   min-height: 100vh;
   font-weight: normal;
+  background-color: rgba(175, 5, 48, 0.498);
 }
 
 a,

@@ -175,8 +175,20 @@ export const useDraftStore = defineStore('draft', () => {
   const isDraftFinished = ref(true);
   const draftList = ref(null)
   const currentTeam = ref(null)
+  const draftSelectionTimer = ref(
+    {
+      countDown: 30
 
-// --------------------------------------------------------------------------------------------------------
+    })
+
+  const timerId = ref(30)
+  function startTimer() {
+    timerId.value = setInterval(() => {
+      draftSelectionTimer.value.countDown -= 1
+    }, 1000);
+  }
+
+  // --------------------------------------------------------------------------------------------------------
 
   function startDraft() {
     draftList.value = top200.value
@@ -188,7 +200,7 @@ export const useDraftStore = defineStore('draft', () => {
   }
 
 
-// --------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------
 
   // The draft() function is called for each team during the draft process. If the current team is controlled by an AI, the draftAI() function is called. If the current team is controlled by a human user, the user is prompted to select a player to draft.
   function draft() {
@@ -207,8 +219,15 @@ export const useDraftStore = defineStore('draft', () => {
 
       // draftAI(currentTeam);
     } else {
-      console.log("User is up...")
       isUserSelection.value = true
+      console.log("User is up...")
+      console.log("Timer started....")
+      startTimer()
+
+
+
+
+
       // setTimeout(() => {
       //   // Prompt user to select player here
       //   // For now the draft will end at the 12th team until I flip the teams array around after each round to make it a snakeDraft
@@ -220,7 +239,7 @@ export const useDraftStore = defineStore('draft', () => {
 
   }
 
-// --------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------
 
   // The draftAI() function simulates an AI-controlled team's drafting behavior. It first checks if there are any available players to draft by calling the getAvailablePlayers() function. If there are no available players, the endDraft() function is called to end the draft. If there are available players, the AI randomly selects one of them to draft by calling the addPlayer() function. The currentTeamIndex variable is then incremented to move on to the next team, and the draft() function is called again.
   function draftAI(team) {
@@ -232,10 +251,10 @@ export const useDraftStore = defineStore('draft', () => {
       }
       addPlayerAI(availableRosterSpots)
 
-    }, 500);
+    }, 1000);
   }
 
-// --------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------
 
   function getBestPlayersAvailable(players) {
     const bestPlayers = ref([])
@@ -250,7 +269,7 @@ export const useDraftStore = defineStore('draft', () => {
     return bestPlayers
   }
 
-// --------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------
 
   function addPlayerAI(rosterSpots) {
     const topPlayers = getBestPlayersAvailable(draftList.value)
@@ -282,15 +301,15 @@ export const useDraftStore = defineStore('draft', () => {
       bestFlexSpot.value.player = bestPlayer.value
       removePlayer(bestPlayer.value)
 
-    // If no match, check the QB spot: 
+      // If no match, check the QB spot: 
     } else if (rosterSpots.find(p => p.position == "QB")) {
       console.log("QB added...")
       const qbSpot = ref(null)
       qbSpot.value = rosterSpots.find(p => p.position == "QB")
       qbSpot.value.player = topPlayers.value.find(p => p.Position == "QB")
       removePlayer(qbSpot.value.player)
-    
-    // If no match, check the TE spot
+
+      // If no match, check the TE spot
     } else if (rosterSpots.find(p => p.position == "TE")) {
       console.log("TE added...")
       const teSpot = ref(null)
@@ -305,29 +324,29 @@ export const useDraftStore = defineStore('draft', () => {
       console.log("Getting auxiliary roster spot...")
       const auxSpot = ref(null)
       auxSpot.value = rosterSpots.find(p => p.position)
-      if(auxSpot.value.name.includes("WR") || auxSpot.value.name.includes("RB") || auxSpot.value.name.includes("FLEX")) {
-        if(auxSpot.value.position == "WR") {
+      if (auxSpot.value.name.includes("WR") || auxSpot.value.name.includes("RB") || auxSpot.value.name.includes("FLEX")) {
+        if (auxSpot.value.position == "WR") {
           auxSpot.value.player = topPlayers.value.find(p => p.Position == "WR");
         }
-        else if(auxSpot.value.position == "RB") {
+        else if (auxSpot.value.position == "RB") {
           auxSpot.value.player = topPlayers.value.find(p => p.Position == "RB");
         }
         else {
           const flexPlayers = ref(null)
           flexPlayers.value = topPlayers.value.filter(p => p.Position == "WR" || p.Position == "RB")
-          if(flexPlayers.value.length > 1){
+          if (flexPlayers.value.length > 1) {
             auxSpot.value.player = flexPlayers.value.reduce(
               (prev, current) => {
                 return prev.AverageDraftPositionPPR < current.AverageDraftPositionPPR ? prev : current
               });
           } else {
             auxSpot.value.player = flexPlayers.value
-            }
-          
+          }
+
         }
         removePlayer(auxSpot.value.player)
       }
-}
+    }
 
     console.log("Current Roster: ", currentTeam.value.roster)
     if (currentTeam.value.roster.every(p => p.player != null)) {
@@ -339,7 +358,7 @@ export const useDraftStore = defineStore('draft', () => {
     draft();
   }
 
-// --------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------
 
   function addPlayerUser(player) {
     if (currentTeam.value.isAI) {
@@ -368,13 +387,16 @@ export const useDraftStore = defineStore('draft', () => {
     }
     currentTeamIndex.value = (currentTeamIndex.value + 1) % teams.value.length;
     console.log("Next team's turn...", currentTeamIndex.value)
+    clearInterval(timerId.value)
+    draftSelectionTimer.value.countDown = 30
     currentTeam.value.isDrafting = false
+    isUserSelection.value = false
     draft();
 
   }
 
 
-// --------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------
 
   function addTeamToLeague(teamName, roster) {
     league.value.push({
@@ -385,7 +407,7 @@ export const useDraftStore = defineStore('draft', () => {
   }
 
 
-// --------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------
 
   // The getAvailablePlayers() function returns an array of players that are available to be drafted. It does this by filtering a list of all players to find those that can fill a position that has not yet been filled on the team's roster. The find() function is used to find the first position object in the roster variable's positions array that matches the player's position and has a player value of null. The flex1 and flex2 variables are also used to check if the player can fill one of the two flex positions, which can be filled by players of multiple positions.
   function getAvailableRosterSpots(roster) {
@@ -396,7 +418,7 @@ export const useDraftStore = defineStore('draft', () => {
   }
 
 
-// --------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------
 
   // The endDraft() function sets isDraftFinished to true and logs a message to the console indicating that the draft has finished.
   function endDraft() {
@@ -405,10 +427,10 @@ export const useDraftStore = defineStore('draft', () => {
   }
 
 
-// --------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------
 
   function removePlayer(player) {
     draftList.value = draftList.value.filter(p => p != player)
   }
-  return { startDraft, endDraft, league, teams, addPlayerUser, isUserSelection, draftList, isDraftFinished, currentTeam }
+  return { startDraft, endDraft, league, teams, addPlayerUser, isUserSelection, draftList, isDraftFinished, currentTeam, draftSelectionTimer }
 })

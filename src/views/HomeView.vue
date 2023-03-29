@@ -38,25 +38,21 @@ const teamPrompt = ref({
 </script>
 
 <template>
-  <v-container fluid class="pa-6 home-container">
-    <v-row align="center" justify="center">
-      <v-col cols="12">
-        <h1>
+  <v-container fluid class="home-container d-flex align-center justify-space-around">
+    <v-row align="center" justify="center" align-content="space-around">
+      <v-col cols="12" class="d-flex justify-left">
+        <div class="text-weight-medium text-h5 text-left">
           {{ welcomeIntro.msg }}
-        </h1>
+        </div>
       </v-col>
       <v-col cols="12" sm="6" md="6" lg="6">
-        <p>
+        <div class="text-weight-black text-body-1">
           {{ teamPrompt.msg }}
-        </p>
+        </div>
       </v-col>
-      <v-col cols="12" sm="6" md="6" lg="6">
+      <v-col cols="12" sm="6" md="6" lg="6" class="">
         <v-form ref="form" @submit.prevent="createTeam(teamPrompt.input)">
-          <v-text-field
-            width="300"
-            bgColor="white"
-            v-model="teamPrompt.input"
-          ></v-text-field
+          <v-text-field bgColor="white" v-model="teamPrompt.input"></v-text-field
         ></v-form>
       </v-col>
     </v-row>
@@ -64,7 +60,10 @@ const teamPrompt = ref({
 </template>
 <style scoped>
 .home-container {
-  max-width: 800px;
+  min-height: 100vh;
+}
+.welcome-intro {
+  font-weight: 400;
 }
 .typed {
   overflow: hidden;
