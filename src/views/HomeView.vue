@@ -40,20 +40,34 @@ const teamPrompt = ref({
 <template>
   <v-container fluid class="home-container d-flex align-center justify-space-around">
     <v-row align="center" justify="center" align-content="space-around">
-      <v-col cols="12" class="d-flex justify-left">
-        <div class="text-weight-medium text-h5 text-left">
+      <v-col cols="12">
+        <div class="text-weight-medium text-center text-h5 text-left">
           {{ welcomeIntro.msg }}
         </div>
       </v-col>
-      <v-col cols="12" sm="6" md="6" lg="6">
-        <div class="text-weight-black text-body-1">
+      <v-col cols="12">
+        <div class="text-weight-black text-center text-body-1">
           {{ teamPrompt.msg }}
         </div>
       </v-col>
-      <v-col cols="12" sm="6" md="6" lg="6" class="">
-        <v-form ref="form" @submit.prevent="createTeam(teamPrompt.input)">
-          <v-text-field bgColor="white" v-model="teamPrompt.input"></v-text-field
-        ></v-form>
+      <v-col cols="12">
+        <v-card class="ma-auto pa-6" max-width="500">
+          <v-form
+            ref="form"
+            class="form-main"
+            @submit.prevent="createTeam(teamPrompt.input)"
+          >
+            <v-text-field
+              class="form-team-input"
+              bgColor="white"
+              v-model="teamPrompt.input"
+            ></v-text-field>
+            <br />
+            <v-btn block color="#af05307f" size="large" type="submit" variant="elevated">
+              Enter Draft
+            </v-btn>
+          </v-form>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -62,6 +76,13 @@ const teamPrompt = ref({
 .home-container {
   min-height: 100vh;
 }
+.form-div {
+  justify-content: space-around;
+}
+.form-main {
+  max-width: 500px;
+}
+
 .welcome-intro {
   font-weight: 400;
 }

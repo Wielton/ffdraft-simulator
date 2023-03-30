@@ -175,23 +175,62 @@ export const useDraftStore = defineStore('draft', () => {
   const isDraftFinished = ref(true);
   const draftList = ref(null)
   const currentTeam = ref(null)
+  const prevTeam = ref(null)
   const draftSelectionTimer = ref(15)
+  const lastPlayerAdded = ref(null)
 
   const timerId = ref(15)
+
   function startTimer() {
     timerId.value = setInterval(() => {
       draftSelectionTimer.value -= 1
-      if (draftSelectionTimer.value === 0) { 
+      if (draftSelectionTimer.value === 0) {
         clearInterval(timerId.value)
         const myAvailSpots = getAvailableRosterSpots(currentTeam.value.roster)
         addPlayerAI(myAvailSpots)
         draftSelectionTimer.value = 15
         isUserSelection.value = false
-      } 
-      
+      }
+
     }, 1000);
 
   }
+
+  // --------------------------------------------------------------------------------------------------------
+
+  function addTeamToLeague(teamName, roster) {
+    league.value.push({
+      name: teamName,
+      roster: roster
+    });
+    console.log(league.value)
+  }
+
+  // --------------------------------------------------------------------------------------------------------
+
+  // The endDraft() function sets isDraftFinished to true and logs a message to the console indicating that the draft has finished.
+  function endDraft() {
+    isDraftFinished.value = true;
+    console.log("Draft is finished");
+  }
+
+  // --------------------------------------------------------------------------------------------------------
+
+  // The getAvailablePlayers() function returns an array of players that are available to be drafted. It does this by filtering a list of all players to find those that can fill a position that has not yet been filled on the team's roster. The find() function is used to find the first position object in the roster variable's positions array that matches the player's position and has a player value of null. The flex1 and flex2 variables are also used to check if the player can fill one of the two flex positions, which can be filled by players of multiple positions.
+  function getAvailableRosterSpots(roster) {
+    const rosterSpots = roster.filter(p => !p.player);
+    if (rosterSpots.length) {
+      return rosterSpots
+    }
+  }
+
+
+  // --------------------------------------------------------------------------------------------------------
+
+  function removePlayer(player) {
+    draftList.value = draftList.value.filter(p => p != player)
+  }
+
 
   // --------------------------------------------------------------------------------------------------------
 
@@ -212,6 +251,7 @@ export const useDraftStore = defineStore('draft', () => {
     // if(teams.value.every(p => p.roster.every(pos => !pos.player))){
     //     endDraft();
     //   }
+    prevTeam.value = teams.value[currentTeamIndex.value - 1]
     currentTeam.value = teams.value[currentTeamIndex.value];
     currentTeam.value.isDrafting = true
     if (currentTeam.value.isAI) {
@@ -226,19 +266,6 @@ export const useDraftStore = defineStore('draft', () => {
     } else {
       isUserSelection.value = true
       startTimer()
-      
-      // if (draftSelectionTimer.value === 30) {
-      //   const nextTeamIdx = currentTeamIndex.value + 1
-      //   const nextTeam = teams.value[nextTeamIdx]
-      //   
-      //   console.log(myAvailSpots)
-      //   const nextAvailSpots = getAvailableRosterSpots(nextTeam.roster)
-      //   if (myAvailSpots.length == nextAvailSpots.length) {
-      //     
-      //   }
-      // }
-
-
     }
 
   }
@@ -295,6 +322,7 @@ export const useDraftStore = defineStore('draft', () => {
       bestSpot.value.player = bestPlayer.value
       console.log("Best spot added: ", bestPlayer.value)
       removePlayer(bestPlayer.value)
+      lastPlayerAdded.value = bestPlayer.value
     }
     // If no match, then check flex positions for WR or RB:
     else if (rosterSpots.find(p => p.name.includes("FLEX")) && (bestPlayer.value.Position == "WR" || bestPlayer.value.Position == "RB")) {
@@ -304,6 +332,7 @@ export const useDraftStore = defineStore('draft', () => {
       bestFlexSpot.value = rosterSpots.find(p => p.name.includes("FLEX"))
       bestFlexSpot.value.player = bestPlayer.value
       removePlayer(bestPlayer.value)
+      lastPlayerAdded.value = bestPlayer.value
 
       // If no match, check the QB spot: 
     } else if (rosterSpots.find(p => p.position == "QB")) {
@@ -312,6 +341,7 @@ export const useDraftStore = defineStore('draft', () => {
       qbSpot.value = rosterSpots.find(p => p.position == "QB")
       qbSpot.value.player = topPlayers.value.find(p => p.Position == "QB")
       removePlayer(qbSpot.value.player)
+      lastPlayerAdded.value = qbSpot.value.player
 
       // If no match, check the TE spot
     } else if (rosterSpots.find(p => p.position == "TE")) {
@@ -320,6 +350,7 @@ export const useDraftStore = defineStore('draft', () => {
       teSpot.value = rosterSpots.find(p => p.position == "TE")
       teSpot.value.player = topPlayers.value.find(p => p.Position == "TE")
       removePlayer(teSpot.value.player)
+      lastPlayerAdded.value = teSpot.value.player
     }
 
     // If no match, find the next available roster spot,
@@ -349,6 +380,7 @@ export const useDraftStore = defineStore('draft', () => {
 
         }
         removePlayer(auxSpot.value.player)
+        lastPlayerAdded.value = auxSpot.value.player
       }
     }
 
@@ -365,76 +397,43 @@ export const useDraftStore = defineStore('draft', () => {
   // --------------------------------------------------------------------------------------------------------
 
   function addPlayerUser(player) {
-    if (currentTeam.value.isAI) {
-      const rosterSpot = currentTeam.value.roster.find(p => p.name.includes(player.Position) && !p.player)
-      console.log(rosterSpot)
-      rosterSpot.player = player
-    } else {
-      const rosterPlayer = currentTeam.value.roster.find(p => p.position == player.Position && p.player == null);
-      const flex1 = currentTeam.value.roster.find(p => p.name == "FLEX1" && p.position.includes(player.Position) && p.player == null);
-      const flex2 = currentTeam.value.roster.find(p => p.name == "FLEX2" && p.position.includes(player.Position) && p.player == null);
 
-      if (rosterPlayer) {
-        rosterPlayer.player = player;
-      }
-      else if (flex1) {
+    const rosterPlayer = currentTeam.value.roster.find(p => p.position == player.Position && p.player == null);
+    const flex1 = currentTeam.value.roster.find(p => p.name == "FLEX1" && p.position.includes(player.Position) && p.player == null);
+    const flex2 = currentTeam.value.roster.find(p => p.name == "FLEX2" && p.position.includes(player.Position) && p.player == null);
+
+    if (rosterPlayer) {
+      rosterPlayer.player = player;
+      removePlayer(player)
+      lastPlayerAdded.value = player
+    }
+    else if (flex1) {
         flex1.player = player;
+        removePlayer(player)
+        lastPlayerAdded.value = player
       }
       else if (flex2) {
         flex2.player = player;
+        removePlayer(player)
+        lastPlayerAdded.value = player
+      } else {
+        console.log("Position already taken, pick again...")
+        draft()
       }
-      isUserSelection.value = false;
-    }
-    removePlayer(player)
+      
+    
     if (currentTeam.value.roster.every(p => p.player != null)) {
-      addTeamToLeague(currentTeam, currentTeam.value.roster);
-    }
-    currentTeamIndex.value = (currentTeamIndex.value + 1) % teams.value.length;
-    console.log("Next team's turn...", currentTeamIndex.value)
-    clearInterval(timerId.value)
-    draftSelectionTimer.value = 15
-    currentTeam.value.isDrafting = false
-    isUserSelection.value = false
-    draft();
-
+        addTeamToLeague(currentTeam, currentTeam.value.roster);
+      }
+      currentTeamIndex.value = (currentTeamIndex.value + 1) % teams.value.length;
+      console.log("Next team's turn...", currentTeamIndex.value)
+      clearInterval(timerId.value)
+      draftSelectionTimer.value = 15
+      currentTeam.value.isDrafting = false
+      isUserSelection.value = false
+      draft();
   }
-
-
-  // --------------------------------------------------------------------------------------------------------
-
-  function addTeamToLeague(teamName, roster) {
-    league.value.push({
-      name: teamName,
-      roster: roster
-    });
-    console.log(league.value)
-  }
-
-
-  // --------------------------------------------------------------------------------------------------------
-
-  // The getAvailablePlayers() function returns an array of players that are available to be drafted. It does this by filtering a list of all players to find those that can fill a position that has not yet been filled on the team's roster. The find() function is used to find the first position object in the roster variable's positions array that matches the player's position and has a player value of null. The flex1 and flex2 variables are also used to check if the player can fill one of the two flex positions, which can be filled by players of multiple positions.
-  function getAvailableRosterSpots(roster) {
-    const rosterSpots = roster.filter(p => !p.player);
-    if (rosterSpots.length) {
-      return rosterSpots
-    }
-  }
-
-
-  // --------------------------------------------------------------------------------------------------------
-
-  // The endDraft() function sets isDraftFinished to true and logs a message to the console indicating that the draft has finished.
-  function endDraft() {
-    isDraftFinished.value = true;
-    console.log("Draft is finished");
-  }
-
-
-  // --------------------------------------------------------------------------------------------------------
-
-  function removePlayer(player) {
-    draftList.value = draftList.value.filter(p => p != player)
-  }
-  return { startDraft, endDraft, league, teams, addPlayerUser, isUserSelection, draftList, isDraftFinished, currentTeam, draftSelectionTimer }
+  return { startDraft, endDraft, league, teams, addPlayerUser, isUserSelection, draftList, isDraftFinished, currentTeamIndex, draftSelectionTimer, prevTeam, lastPlayerAdded }
 })
+
+

@@ -10,7 +10,7 @@ defineProps({
 });
 </script>
 <template>
-  <v-table height="500px">
+  <v-table density="compact" height="300px">
     <thead>
       <tr>
         <th class="text-left">Name</th>
